@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--继承负责版本控制的父工程-->
+    <parent>
+        <groupId>org.lcm.gulimall</groupId>
+        <artifactId>gulimall-dependencies</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <!--由于继承了父工程，可以省略groupId和version-->
+    <artifactId>product</artifactId>
+
+    <!--打包方式：各个微服务可以单独打包-->
+    <packaging>jar</packaging>
+
+    <!--导入依赖-->
+    <dependencies>
+        <!--Spring Boot Web-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--Spring Boot 监控-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--Spring Cloud Loadbalancer 客户端负载均衡-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
+        <!--Spring Cloud OpenFeign 服务调用-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-netflix-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--Spring Cloud Alibaba Nacos Discovery 服务注册和发现-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
